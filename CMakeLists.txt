@@ -1,7 +1,7 @@
-project(GPSBreaker)
+project(UARTReceiver)
 
 find_library(TRACKER_LIB trackerinterface .)
 
-add_executable(GPSBreaker main.cpp)
+add_executable(UARTReceiver UARTReceiver.h UARTReceiver.cpp main.cpp)
 
-target_link_libraries(GPSBreaker ${TRACKER_LIB})
+target_link_libraries(UARTReceiver ${TRACKER_LIB})
