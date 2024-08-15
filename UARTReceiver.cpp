@@ -1,14 +1,15 @@
 #include "UARTReceiver.h"
 
-#include <iostream>
 #include "trackerinterface.h"
 
-void UARTReceiver::process()
+std::string UARTReceiver::process()
 {
     _lastStateTime = _clock.now();
     char currentChar = 0;
     int bitsReceived = 0;
     ReceiverState currentState = ReceiverState::WaitingForStartBit;
+
+    std::string strCollected = "";
 
     while (true)
     {
@@ -39,7 +40,9 @@ void UARTReceiver::process()
                 _lastStateTime = _clock.now();
                 if (bitsReceived == _BITS_IN_CHAR)
                 {
-                    std::cout << currentChar;
+                    strCollected += currentChar;
+                    if (*strCollected.rbegin() == 0x0A && *(strCollected.rbegin() + 1) == 0x0D)
+                        return strCollected;
                     currentChar = 0;
                     bitsReceived = 0;
                     currentState = ReceiverState::WaitingForStopBit;

@@ -1,11 +1,12 @@
 #pragma once
 
 #include <chrono>
+#include <string>
 
 class UARTReceiver
 {
 public:
-    void process();
+    std::string process();
 
 private:
     enum class ReceiverState
